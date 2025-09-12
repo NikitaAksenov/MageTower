@@ -4,7 +4,9 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/PlayerController.h"
+
 #include "MTPlayerController.generated.h"
+
 
 /**
  * 
@@ -13,5 +15,8 @@ UCLASS()
 class MAGETOWER_API AMTPlayerController : public APlayerController
 {
 	GENERATED_BODY()
+
+public:
+	AMTPlayerController();
 	
 };
