@@ -8,6 +8,7 @@
 #include "Enemy.generated.h"
 
 
+class ATower;
 class UCapsuleComponent;
 class UFloatingPawnMovement;
 
@@ -37,4 +38,7 @@ public:
 	
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Components")
 	TObjectPtr<UFloatingPawnMovement> FloatingPawnMovement;
+
+public:
+	void OnOverlappedTower(ATower* InTower);
 };

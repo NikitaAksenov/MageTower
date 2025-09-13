@@ -3,6 +3,12 @@
 
 #include "Tower/Tower.h"
 
+#include "Components/SphereComponent.h"
+#include "Enemy/Enemy.h"
+
+
+DEFINE_LOG_CATEGORY(LogTower);
+
 
 ATower::ATower()
 {
@@ -13,12 +19,16 @@ ATower::ATower()
 
 	StaticMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("StaticMesh"));
 	StaticMesh->SetupAttachment(Root);
+
+	EnemyOverlapSphere = CreateDefaultSubobject<USphereComponent>(TEXT("EnemyOverlapSphere"));
+	EnemyOverlapSphere->SetupAttachment(Root);
 }
 
 void ATower::BeginPlay()
 {
 	Super::BeginPlay();
-	
+
+	EnemyOverlapSphere->OnComponentBeginOverlap.AddDynamic(this, &ThisClass::ATower::OnEnemySphereBeginOverlap);
 }
 
 void ATower::Tick(float DeltaTime)
@@ -27,3 +37,13 @@ void ATower::Tick(float DeltaTime)
 
 }
 
+void ATower::OnEnemySphereBeginOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor,
+	UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
+{
+	UE_LOG(LogTower, Log, TEXT("Overlapped %s"), *OtherActor->GetName());
+
+	if (AEnemy* Enemy = Cast<AEnemy>(OtherActor))
+	{
+		Enemy->OnOverlappedTower(this);
+	}
+}
