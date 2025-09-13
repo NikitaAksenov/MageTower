@@ -3,6 +3,7 @@
 
 #include "Tower/Tower.h"
 
+#include "Components/HealthComponent.h"
 #include "Components/SphereComponent.h"
 #include "Enemy/Enemy.h"
 
@@ -22,6 +23,8 @@ ATower::ATower()
 
 	EnemyOverlapSphere = CreateDefaultSubobject<USphereComponent>(TEXT("EnemyOverlapSphere"));
 	EnemyOverlapSphere->SetupAttachment(Root);
+
+	Health = CreateDefaultSubobject<UHealthComponent>(TEXT("Health"));
 }
 
 void ATower::BeginPlay()
@@ -29,6 +32,8 @@ void ATower::BeginPlay()
 	Super::BeginPlay();
 
 	EnemyOverlapSphere->OnComponentBeginOverlap.AddDynamic(this, &ThisClass::ATower::OnEnemySphereBeginOverlap);
+
+	Health->OnHealthDepletedDelegate.AddDynamic(this, &ThisClass::ATower::OnTowerDestroyed);
 }
 
 void ATower::Tick(float DeltaTime)
@@ -46,4 +51,11 @@ void ATower::OnEnemySphereBeginOverlap(UPrimitiveComponent* OverlappedComponent,
 	{
 		Enemy->OnOverlappedTower(this);
 	}
+}
+
+void ATower::OnTowerDestroyed()
+{
+	UE_LOG(LogTower, Log, TEXT("Tower destroyed"));
+
+	OnTowerDestroyedDelegate.Broadcast(this);
 }

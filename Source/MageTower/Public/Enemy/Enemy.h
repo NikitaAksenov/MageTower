@@ -29,7 +29,7 @@ public:
 
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
-public:
+protected:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Components")
 	TObjectPtr<UCapsuleComponent> Capsule;
 
@@ -38,6 +38,10 @@ public:
 	
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Components")
 	TObjectPtr<UFloatingPawnMovement> FloatingPawnMovement;
+
+protected:
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Components")
+	float Damage = 1.f;
 
 public:
 	void OnOverlappedTower(ATower* InTower);

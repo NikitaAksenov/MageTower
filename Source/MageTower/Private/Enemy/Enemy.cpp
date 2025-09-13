@@ -4,6 +4,7 @@
 #include "Enemy/Enemy.h"
 
 #include "Components/CapsuleComponent.h"
+#include "Components/HealthComponent.h"
 #include "GameFramework/FloatingPawnMovement.h"
 #include "Tower/Tower.h"
 
@@ -46,6 +47,8 @@ void AEnemy::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 void AEnemy::OnOverlappedTower(ATower* InTower)
 {
 	if (!IsValid(InTower)) return;
+
+	InTower->GetHealth()->ApplyDamage(Damage, this);
 
 	Destroy();
 }
