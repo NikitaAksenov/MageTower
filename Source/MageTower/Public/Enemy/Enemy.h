@@ -45,4 +45,5 @@ protected:
 
 public:
 	void OnOverlappedTower(ATower* InTower);
+	
 };

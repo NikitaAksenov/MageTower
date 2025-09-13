@@ -3,26 +3,41 @@
 
 #include "Enemy/MTAIController.h"
 
+#include "Core/MTGameStateBase.h"
 #include "Kismet/GameplayStatics.h"
 #include "Tower/Tower.h"
+
+
+DEFINE_LOG_CATEGORY(LogEnemy);
 
 
 void AMTAIController::BeginPlay()
 {
 	Super::BeginPlay();
-	
+
+	GameState = Cast<AMTGameStateBase>(GetWorld()->GetGameState());
+	check(GameState);
+	GameState->OnGameStartedDelegate.AddDynamic(this, &ThisClass::AMTAIController::OnGameStarted);
+	GameState->OnGameFinishedDelegate.AddDynamic(this, &ThisClass::AMTAIController::OnGameFinished);
 }
 
 void AMTAIController::OnPossess(APawn* InPawn)
 {
 	Super::OnPossess(InPawn);
 
-	StartLifecycle();
+	if (GameState->IsGameInProgress())
+	{
+		StartLifecycle();
+	}
 }
 
 void AMTAIController::StartLifecycle()
 {
+	check(GetPawn());
+	
 	if (bLifecycleStarted) return;
+
+	UE_LOG(LogEnemy, Log, TEXT("%s lifecycle started"), *GetPawn()->GetName());
 
 	bLifecycleStarted = true;
 
@@ -31,4 +46,30 @@ void AMTAIController::StartLifecycle()
 	{
 		EPathFollowingRequestResult::Type Result = MoveToActor(Tower.Get());
 	}
+}
+
+void AMTAIController::StopLifecycle()
+{
+	check(GetPawn());
+
+	if (!bLifecycleStarted) return;
+
+	UE_LOG(LogEnemy, Log, TEXT("%s lifecycle stopped"), *GetPawn()->GetName());
+
+	bLifecycleStarted = false;
+
+	StopMovement();	
+}
+
+void AMTAIController::OnGameStarted()
+{
+	if (GetPawn())
+	{
+		StartLifecycle();
+	}
+}
+
+void AMTAIController::OnGameFinished(EGameFinishedReason InReason)
+{
+	StopLifecycle();
 }

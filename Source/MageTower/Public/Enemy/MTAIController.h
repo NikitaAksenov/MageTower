@@ -5,6 +5,8 @@
 #include "CoreMinimal.h"
 #include "AIController.h"
 
+#include "Core/MTGameStateBase.h"
+
 #include "MTAIController.generated.h"
 
 
@@ -34,4 +36,15 @@ protected:
 
 protected:
 	void StartLifecycle();
+	void StopLifecycle();
+
+protected:
+	UFUNCTION()
+	void OnGameStarted();
+	
+	UFUNCTION()
+	void OnGameFinished(EGameFinishedReason InReason);
+
+protected:
+	AMTGameStateBase* GameState = nullptr;
 };
