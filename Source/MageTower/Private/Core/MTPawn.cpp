@@ -5,6 +5,7 @@
 
 #include "Camera/CameraComponent.h"
 #include "GameFramework/SpringArmComponent.h"
+#include "Spell/SpellComponent.h"
 
 
 AMTPawn::AMTPawn()
@@ -19,6 +20,8 @@ AMTPawn::AMTPawn()
 
 	Camera = CreateDefaultSubobject<UCameraComponent>(TEXT("Camera"));
 	Camera->SetupAttachment(SpringArm);
+
+	SpellComponent = CreateDefaultSubobject<USpellComponent>(TEXT("SpellComponent"));
 }
 
 void AMTPawn::BeginPlay()

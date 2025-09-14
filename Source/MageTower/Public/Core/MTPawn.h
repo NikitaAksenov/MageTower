@@ -9,6 +9,7 @@
 
 
 class UCameraComponent;
+class USpellComponent;
 class USpringArmComponent;
 
 
@@ -38,4 +39,7 @@ protected:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Components")
 	TObjectPtr<UCameraComponent> Camera;
 
+protected:
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Components")
+	TObjectPtr<USpellComponent> SpellComponent;
 };
