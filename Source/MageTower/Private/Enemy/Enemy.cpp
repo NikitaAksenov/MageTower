@@ -24,12 +24,15 @@ AEnemy::AEnemy()
 
 	FloatingPawnMovement = CreateDefaultSubobject<UFloatingPawnMovement>(TEXT("FloatingPawnMovement"));
 
+	HealthComponent = CreateDefaultSubobject<UHealthComponent>(TEXT("HealthComponent"));
+
 }
 
 void AEnemy::BeginPlay()
 {
 	Super::BeginPlay();
-	
+
+	HealthComponent->OnHealthDepletedDelegate.AddDynamic(this, &ThisClass::OnHealthDepleted);
 }
 
 void AEnemy::Tick(float DeltaTime)
@@ -50,5 +53,10 @@ void AEnemy::OnOverlappedTower(ATower* InTower)
 
 	InTower->GetHealth()->ApplyDamage(Damage, this);
 
+	HealthComponent->ApplyDamage(HealthComponent->GetMaxHealth(), this);
+}
+
+void AEnemy::OnHealthDepleted()
+{
 	Destroy();
 }

@@ -55,6 +55,11 @@ bool UHealthComponent::IsFullHealth() const
 	return FMath::IsNearlyEqual(CurrentHealth, MaxHealth);
 }
 
+float UHealthComponent::GetMaxHealth() const
+{
+	return MaxHealth;
+}
+
 bool UHealthComponent::ApplyDamage(float InDamage, UObject* InInstigator)
 {
 	if (IsHealthDepleted()) return false;

@@ -11,6 +11,7 @@
 class ATower;
 class UCapsuleComponent;
 class UFloatingPawnMovement;
+class UHealthComponent;
 
 
 UCLASS()
@@ -35,15 +36,23 @@ protected:
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Components")
 	TObjectPtr<UStaticMeshComponent> StaticMesh;
-	
-	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Components")
-	TObjectPtr<UFloatingPawnMovement> FloatingPawnMovement;
 
 protected:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Components")
+	TObjectPtr<UFloatingPawnMovement> FloatingPawnMovement;
+	
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Components")
+	TObjectPtr<UHealthComponent> HealthComponent;
+
+protected:
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Enemy|Settings")
 	float Damage = 1.f;
 
 public:
 	void OnOverlappedTower(ATower* InTower);
+
+protected:
+	UFUNCTION()
+	void OnHealthDepleted();
 	
 };

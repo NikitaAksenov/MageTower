@@ -31,9 +31,9 @@ void ATower::BeginPlay()
 {
 	Super::BeginPlay();
 
-	EnemyOverlapSphere->OnComponentBeginOverlap.AddDynamic(this, &ThisClass::ATower::OnEnemySphereBeginOverlap);
+	EnemyOverlapSphere->OnComponentBeginOverlap.AddDynamic(this, &ThisClass::OnEnemySphereBeginOverlap);
 
-	Health->OnHealthDepletedDelegate.AddDynamic(this, &ThisClass::ATower::OnTowerDestroyed);
+	Health->OnHealthDepletedDelegate.AddDynamic(this, &ThisClass::OnTowerDestroyed);
 }
 
 void ATower::Tick(float DeltaTime)

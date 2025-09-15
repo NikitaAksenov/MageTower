@@ -18,4 +18,29 @@ class MAGETOWER_API USpell_ArcaneBlast : public UPlayerSpell
 
 public:
 	USpell_ArcaneBlast();
+
+public:
+	virtual void Tick(float DeltaTime) override;
+
+	virtual void OnSpellActivated() override;
+
+protected:
+	UPROPERTY(EditDefaultsOnly, Category = "Spell|Settings")
+	float Radius = 500.f;
+
+	UPROPERTY(EditDefaultsOnly, Category = "Spell|Settings")
+	float Damage = 10.f;
+
+	UPROPERTY(EditDefaultsOnly, Category = "Spell|Settings")
+	TArray<TEnumAsByte<EObjectTypeQuery>> ObjectTypes;
+	
+	UPROPERTY(EditDefaultsOnly, Category = "Spell|Settings")
+	TEnumAsByte<ECollisionChannel> DamageCollisionChannel = ECollisionChannel::ECC_Pawn;
+
+protected:
+	UPROPERTY(VisibleInstanceOnly, Category = "Spell|Runtime")
+	float CooldownDuration = 0.f;
+	
+	UPROPERTY(VisibleInstanceOnly, Category = "Spell|Runtime")
+	FVector LocationUnderCursor;
 };

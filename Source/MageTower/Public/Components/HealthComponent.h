@@ -50,6 +50,9 @@ public:
 	
 	UFUNCTION(BlueprintCallable, Category = "Health")
 	bool IsFullHealth() const;
+
+	UFUNCTION(BlueprintCallable, Category = "Health")
+	float GetMaxHealth() const;
 	
 	UFUNCTION(BlueprintCallable, Category = "Health")
 	bool ApplyDamage(float InDamage, UObject* InInstigator);
