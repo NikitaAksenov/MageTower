@@ -5,6 +5,7 @@
 
 #include "Core/MTGameStateBase.h"
 #include "Kismet/GameplayStatics.h"
+#include "Statics/MageTowerFunctionLibrary.h"
 #include "Tower/Tower.h"
 
 
@@ -15,7 +16,7 @@ void AMTAIController::BeginPlay()
 {
 	Super::BeginPlay();
 
-	GameState = Cast<AMTGameStateBase>(GetWorld()->GetGameState());
+	GameState = UMageTowerFunctionLibrary::GetMTGameState(this);
 	check(GameState);
 	GameState->OnGameStartedDelegate.AddDynamic(this, &ThisClass::AMTAIController::OnGameStarted);
 	GameState->OnGameFinishedDelegate.AddDynamic(this, &ThisClass::AMTAIController::OnGameFinished);

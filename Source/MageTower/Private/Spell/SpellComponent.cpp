@@ -3,8 +3,10 @@
 
 #include "Spell/SpellComponent.h"
 
+#include "Core/MTGameStateBase.h"
 #include "Spell/Spell.h"
 #include "Spell/SpellTypes.h"
+#include "Statics/MageTowerFunctionLibrary.h"
 
 
 USpellComponent::USpellComponent()
@@ -16,16 +18,18 @@ USpellComponent::USpellComponent()
 void USpellComponent::BeginPlay()
 {
 	Super::BeginPlay();
-	
+
+	UMageTowerFunctionLibrary::GetMTGameState(this)->OnGameFinishedDelegate.AddDynamic(this, &ThisClass::OnGameFinished);
 }
 
 void USpellComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 
-	for (auto& SpellPair : Spells)
+	for (const auto& SpellPair : Spells)
 	{
-		SpellPair.Value->Tick(DeltaTime);
+		USpell* Spell = SpellPair.Value;
+		Spell->Tick(DeltaTime);
 	}
 }
 
@@ -47,4 +51,22 @@ void USpellComponent::AddSpell(const FAddSpellInfo& InInfo)
 	Spells.Add(SpellTag, Spell);
 
 	Spell->RegisterSpell(this);
+}
+
+void USpellComponent::ClearSpells()
+{
+	UE_LOG(LogSpell, Log, TEXT("Clearing spells"));
+	
+	for (const auto& SpellPair : Spells)
+	{
+		USpell* Spell = SpellPair.Value;
+		Spell->MarkAsGarbage();
+	}
+
+	Spells.Empty();
+}
+
+void USpellComponent::OnGameFinished(EGameFinishedReason InReason)
+{
+	ClearSpells();
 }

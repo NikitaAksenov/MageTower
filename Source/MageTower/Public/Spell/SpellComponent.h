@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "Components/ActorComponent.h"
 
+#include "Core/MTGameStateBase.h"
 #include "GameplayTagContainer.h"
 
 #include "SpellComponent.generated.h"
@@ -45,4 +46,10 @@ protected:
 protected:
 	UFUNCTION(BlueprintCallable, Category = "Spell")
 	void AddSpell(const FAddSpellInfo& InInfo);
+
+	void ClearSpells();
+
+protected:
+	UFUNCTION()
+	void OnGameFinished(EGameFinishedReason InReason);
 };
