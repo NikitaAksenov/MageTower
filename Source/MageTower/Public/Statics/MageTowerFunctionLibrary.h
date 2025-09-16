@@ -8,6 +8,7 @@
 #include "MageTowerFunctionLibrary.generated.h"
 
 
+class AMTGameModeBase;
 class AMTGameStateBase;
 
 
@@ -22,4 +23,7 @@ class MAGETOWER_API UMageTowerFunctionLibrary : public UBlueprintFunctionLibrary
 public:
 	UFUNCTION(BlueprintCallable, Category = "MageTower")
 	static AMTGameStateBase* GetMTGameState(const UObject* WorldContextObject);
+	
+	UFUNCTION(BlueprintCallable, Category = "MageTower")
+	static AMTGameModeBase* GetMTGameMode(const UObject* WorldContextObject);
 };
