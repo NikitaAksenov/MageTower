@@ -12,6 +12,7 @@ class ATower;
 class UCapsuleComponent;
 class UFloatingPawnMovement;
 class UHealthComponent;
+class UWidgetComponent;
 
 
 UCLASS()
@@ -36,6 +37,9 @@ protected:
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Components")
 	TObjectPtr<UStaticMeshComponent> StaticMesh;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Components")
+	TObjectPtr<UWidgetComponent> HealthBarWidget;
 
 protected:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Components")

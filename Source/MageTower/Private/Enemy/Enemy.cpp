@@ -5,6 +5,7 @@
 
 #include "Components/CapsuleComponent.h"
 #include "Components/HealthComponent.h"
+#include "Components/WidgetComponent.h"
 #include "GameFramework/FloatingPawnMovement.h"
 #include "Tower/Tower.h"
 
@@ -21,6 +22,10 @@ AEnemy::AEnemy()
 	StaticMesh->SetupAttachment(RootComponent);
 	StaticMesh->SetCollisionEnabled(ECollisionEnabled::NoCollision);
 	StaticMesh->SetCanEverAffectNavigation(false);
+
+	HealthBarWidget = CreateDefaultSubobject<UWidgetComponent>(TEXT("HealthBarWidget"));
+	HealthBarWidget->SetupAttachment(StaticMesh);
+	HealthBarWidget->CastShadow = false;
 
 	FloatingPawnMovement = CreateDefaultSubobject<UFloatingPawnMovement>(TEXT("FloatingPawnMovement"));
 

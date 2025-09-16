@@ -27,6 +27,7 @@ ATower::ATower()
 
 	HealthBarWidget = CreateDefaultSubobject<UWidgetComponent>(TEXT("HealthBarWidget"));
 	HealthBarWidget->SetupAttachment(StaticMesh);
+	HealthBarWidget->CastShadow = false;
 
 	Health = CreateDefaultSubobject<UHealthComponent>(TEXT("Health"));
 }
