@@ -17,6 +17,7 @@ public class MageTower : ModuleRules
 			"EnhancedInput",
 			
 			"GameplayTags",
+			"UMG",
 		});
 
 		PrivateDependencyModuleNames.AddRange(new string[] {  });

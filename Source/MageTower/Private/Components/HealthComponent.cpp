@@ -60,6 +60,13 @@ float UHealthComponent::GetMaxHealth() const
 	return MaxHealth;
 }
 
+float UHealthComponent::GetHealthPercentage() const
+{
+	if (MaxHealth == 0.f) return 0.f;
+
+	return CurrentHealth / MaxHealth;
+}
+
 bool UHealthComponent::ApplyDamage(float InDamage, UObject* InInstigator)
 {
 	if (IsHealthDepleted()) return false;

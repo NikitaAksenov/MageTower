@@ -55,6 +55,9 @@ public:
 	float GetMaxHealth() const;
 	
 	UFUNCTION(BlueprintCallable, Category = "Health")
+	float GetHealthPercentage() const;
+	
+	UFUNCTION(BlueprintCallable, Category = "Health")
 	bool ApplyDamage(float InDamage, UObject* InInstigator);
 
 public:

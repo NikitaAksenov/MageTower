@@ -10,6 +10,7 @@
 
 class UHealthComponent;
 class USphereComponent;
+class UWidgetComponent;
 
 
 DECLARE_LOG_CATEGORY_EXTERN(LogTower, Log, All);
@@ -41,6 +42,9 @@ protected:
 	
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Components")
 	TObjectPtr<USphereComponent> EnemyOverlapSphere;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Components")
+	TObjectPtr<UWidgetComponent> HealthBarWidget;
 
 protected:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Components")

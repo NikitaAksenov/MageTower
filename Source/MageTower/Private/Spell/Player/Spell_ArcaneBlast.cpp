@@ -52,7 +52,7 @@ void USpell_ArcaneBlast::OnSpellActivated()
 			HealthComponent->ApplyDamage(Damage, this);
 		}
 		
-		DrawDebugBox(GetWorld(), DamagedActor->GetActorLocation(), FVector(200.f, 200.f, 0.f), FColor::Red);
+		// DrawDebugBox(GetWorld(), DamagedActor->GetActorLocation(), FVector(200.f, 200.f, 0.f), FColor::Red);
 		GEngine->AddOnScreenDebugMessage(-1, 2.f, FColor::Red, DamagedActor->GetName());
 	}
 

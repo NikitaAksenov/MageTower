@@ -5,6 +5,7 @@
 
 #include "Components/HealthComponent.h"
 #include "Components/SphereComponent.h"
+#include "Components/WidgetComponent.h"
 #include "Enemy/Enemy.h"
 
 
@@ -23,6 +24,9 @@ ATower::ATower()
 
 	EnemyOverlapSphere = CreateDefaultSubobject<USphereComponent>(TEXT("EnemyOverlapSphere"));
 	EnemyOverlapSphere->SetupAttachment(Root);
+
+	HealthBarWidget = CreateDefaultSubobject<UWidgetComponent>(TEXT("HealthBarWidget"));
+	HealthBarWidget->SetupAttachment(StaticMesh);
 
 	Health = CreateDefaultSubobject<UHealthComponent>(TEXT("Health"));
 }
