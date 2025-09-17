@@ -67,15 +67,18 @@ float UHealthComponent::GetHealthPercentage() const
 	return CurrentHealth / MaxHealth;
 }
 
-bool UHealthComponent::ApplyDamage(float InDamage, UObject* InInstigator)
+void UHealthComponent::ApplyDamage(float InDamage, UObject* InCauser, AActor* InInstigator)
 {
-	if (IsHealthDepleted()) return false;
+	if (IsHealthDepleted()) return;
 
 	UE_LOG(LogHealthComponent, Log, TEXT("%s received %.2f damage from %s"), *GetOwner()->GetName(), InDamage, InInstigator ? *InInstigator->GetName() : TEXT("unknown"));
 
 	UpdateHealth(-InDamage);
 
-	return IsHealthDepleted();
+	if (IsHealthDepleted())
+	{
+		OnReceivedLethalDamageDelegate.Broadcast(InCauser, InInstigator);
+	}
 }
 
 void UHealthComponent::OnHealthChanged(float InOldHealth, float InNewHealth)

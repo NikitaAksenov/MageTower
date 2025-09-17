@@ -9,9 +9,11 @@
 
 
 class ATower;
+
 class UCapsuleComponent;
 class UFloatingPawnMovement;
 class UHealthComponent;
+class UResourceDropComponent;
 class UWidgetComponent;
 
 
@@ -47,6 +49,9 @@ protected:
 	
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Components")
 	TObjectPtr<UHealthComponent> HealthComponent;
+	
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Components")
+	TObjectPtr<UResourceDropComponent> ResourceDropComponent;
 
 protected:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Enemy|Settings")
@@ -55,8 +60,8 @@ protected:
 public:
 	void OnOverlappedTower(ATower* InTower);
 
-protected:
+protected:	
 	UFUNCTION()
-	void OnHealthDepleted();
+	void OnReceivedLethalDamage(UObject* InCauser, AActor* InInstigator);
 	
 };

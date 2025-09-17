@@ -5,6 +5,8 @@
 #include "CoreMinimal.h"
 #include "GameFramework/GameStateBase.h"
 
+#include "Resources/ResourceTypes.h"
+
 #include "MTGameStateBase.generated.h"
 
 
@@ -50,6 +52,9 @@ protected:
 	UPROPERTY(VisibleInstanceOnly, Category = "GameState")
 	EGameStage CurrentGameStage = EGameStage::None;
 
+	UPROPERTY(VisibleInstanceOnly, Category = "GameState")
+	FResourceContainer ResourceContainer;
+
 public:
 	UPROPERTY(BlueprintAssignable, Category = "GameState")
 	FGameStateEvent OnGameStartedDelegate;
@@ -66,6 +71,9 @@ public:
 
 	UFUNCTION(BlueprintCallable, Category = "GameState")
 	FORCEINLINE bool IsGameInProgress() const { return CurrentGameStage == EGameStage::InProgress; }
+
+	UFUNCTION(BlueprintCallable, Category = "GameState")
+	FResourceContainer& GetResourceContainerRef() { return ResourceContainer; }
 
 protected:
 	UFUNCTION()

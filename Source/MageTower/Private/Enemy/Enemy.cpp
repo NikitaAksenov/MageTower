@@ -6,7 +6,11 @@
 #include "Components/CapsuleComponent.h"
 #include "Components/HealthComponent.h"
 #include "Components/WidgetComponent.h"
+#include "Core/MTGameStateBase.h"
+#include "Core/MTPawn.h"
 #include "GameFramework/FloatingPawnMovement.h"
+#include "Resources/ResourceDropComponent.h"
+#include "Statics/MageTowerFunctionLibrary.h"
 #include "Tower/Tower.h"
 
 
@@ -31,13 +35,15 @@ AEnemy::AEnemy()
 
 	HealthComponent = CreateDefaultSubobject<UHealthComponent>(TEXT("HealthComponent"));
 
+	ResourceDropComponent = CreateDefaultSubobject<UResourceDropComponent>(TEXT("ResourceDropComponent"));
+
 }
 
 void AEnemy::BeginPlay()
 {
 	Super::BeginPlay();
 
-	HealthComponent->OnHealthDepletedDelegate.AddDynamic(this, &ThisClass::OnHealthDepleted);
+	HealthComponent->OnReceivedLethalDamageDelegate.AddDynamic(this, &ThisClass::OnReceivedLethalDamage);
 }
 
 void AEnemy::Tick(float DeltaTime)
@@ -56,12 +62,21 @@ void AEnemy::OnOverlappedTower(ATower* InTower)
 {
 	if (!IsValid(InTower)) return;
 
-	InTower->GetHealth()->ApplyDamage(Damage, this);
+	InTower->GetHealth()->ApplyDamage(Damage, nullptr, this);
 
-	HealthComponent->ApplyDamage(HealthComponent->GetMaxHealth(), this);
+	HealthComponent->ApplyDamage(HealthComponent->GetMaxHealth(), nullptr, this);
 }
 
-void AEnemy::OnHealthDepleted()
+void AEnemy::OnReceivedLethalDamage(UObject* InCauser, AActor* InInstigator)
 {
+	if (Cast<AMTPawn>(InInstigator))
+	{
+		TArray<FResourceInfo> ResourceDrops = ResourceDropComponent->GetResourceDrop();
+		for (const FResourceInfo& ResourceDrop : ResourceDrops)
+		{
+			UMageTowerFunctionLibrary::GetMTGameState(this)->GetResourceContainerRef().Add(ResourceDrop);
+		}
+	}
+	
 	Destroy();
 }

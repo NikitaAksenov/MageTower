@@ -4,6 +4,7 @@
 #include "Spell/Player/Spell_ArcaneBlast.h"
 
 #include "Components/HealthComponent.h"
+#include "Core/MTPawn.h"
 #include "Core/MTPlayerController.h"
 #include "Spell/SpellNativeTags.h"
 
@@ -49,7 +50,7 @@ void USpell_ArcaneBlast::OnSpellActivated()
 
 		if (UHealthComponent* HealthComponent = DamagedActor->FindComponentByClass<UHealthComponent>())
 		{
-			HealthComponent->ApplyDamage(Damage, this);
+			HealthComponent->ApplyDamage(Damage, this, Pawn);
 		}
 		
 		// DrawDebugBox(GetWorld(), DamagedActor->GetActorLocation(), FVector(200.f, 200.f, 0.f), FColor::Red);

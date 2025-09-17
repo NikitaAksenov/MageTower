@@ -13,6 +13,7 @@ DECLARE_LOG_CATEGORY_EXTERN(LogHealthComponent, Log, All);
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnHealthChangedDelegate, float, OldHealth, float, NewHealth);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnHealthDepletedDelegate);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnReceivedLethalDamage, UObject*, Causer, AActor*, Instigator);
 
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
@@ -58,7 +59,7 @@ public:
 	float GetHealthPercentage() const;
 	
 	UFUNCTION(BlueprintCallable, Category = "Health")
-	bool ApplyDamage(float InDamage, UObject* InInstigator);
+	void ApplyDamage(float InDamage, UObject* InCauser, AActor* InInstigator);
 
 public:
 	UPROPERTY(BlueprintAssignable, Category = "Health")
@@ -66,6 +67,9 @@ public:
 	
 	UPROPERTY(BlueprintAssignable, Category = "Health")
 	FOnHealthDepletedDelegate OnHealthDepletedDelegate;
+	
+	UPROPERTY(BlueprintAssignable, Category = "Health")
+	FOnReceivedLethalDamage OnReceivedLethalDamageDelegate;
 
 protected:
 	void OnHealthChanged(float InOldHealth, float InNewHealth);
