@@ -73,6 +73,9 @@ public:
 	FORCEINLINE bool IsGameInProgress() const { return CurrentGameStage == EGameStage::InProgress; }
 
 	UFUNCTION(BlueprintCallable, Category = "GameState")
+	FResourceContainer GetResourceContainer() const { return ResourceContainer; }
+
+	UFUNCTION(BlueprintCallable, Category = "GameState")
 	FResourceContainer& GetResourceContainerRef() { return ResourceContainer; }
 
 protected:

@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 
 #include "GameplayTagContainer.h"
+#include "ResourceNativeTags.h"
 
 #include "ResourceTypes.generated.h"
 
@@ -18,10 +19,17 @@ struct FResourceInfo
 	GENERATED_BODY()
 
 public:
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (Categories = "Resource.Type"))
+	FResourceInfo()
+		: ResourceTypeTag(TAG_Resource_Type), Amount(0) {}
+
+	FResourceInfo(const FGameplayTag& InResourceTypeTag, int32 InAmount)
+		: ResourceTypeTag(InResourceTypeTag), Amount(InAmount) {}
+
+public:
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, SaveGame, meta = (Categories = "Resource.Type"))
 	FGameplayTag ResourceTypeTag;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, SaveGame, meta = (UIMin = 0, ClampMin = 0))
 	int32 Amount;
 };
 
@@ -44,11 +52,16 @@ struct FResourceContainer
 {
 	GENERATED_BODY()
 
+public:
+	FResourceContainer();
+	FResourceContainer(const FResourceContainer& InResourceContainer);
+
 protected:
-	UPROPERTY(VisibleInstanceOnly)
+	UPROPERTY(VisibleInstanceOnly, SaveGame)
 	TMap<FGameplayTag, FResourceInfo> Resources;
 
 public:
 	void Add(const FGameplayTag& InResourceTypeTag, int32 InAmount);
 	void Add(const FResourceInfo& InResourceInfo);
+	void Add(const FResourceContainer& InResourceContainer);
 };

@@ -3,6 +3,7 @@
 
 #include "Statics/MageTowerFunctionLibrary.h"
 
+#include "Core/MTGameInstance.h"
 #include "Core/MTGameModeBase.h"
 #include "Core/MTGameStateBase.h"
 
@@ -25,4 +26,14 @@ AMTGameModeBase* UMageTowerFunctionLibrary::GetMTGameMode(const UObject* WorldCo
 	if (!World) return nullptr;
 
 	return Cast<AMTGameModeBase>(World->GetAuthGameMode());
+}
+
+UMTGameInstance* UMageTowerFunctionLibrary::GetMTGameInstance(const UObject* WorldContextObject)
+{
+	if (!WorldContextObject) return nullptr;
+
+	const UWorld* World = WorldContextObject->GetWorld();
+	if (!World) return nullptr;
+
+	return Cast<UMTGameInstance>(World->GetGameInstance());
 }

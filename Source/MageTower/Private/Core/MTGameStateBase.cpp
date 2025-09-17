@@ -3,7 +3,9 @@
 
 #include "Core/MTGameStateBase.h"
 
+#include "Core/MTGameInstance.h"
 #include "Kismet/GameplayStatics.h"
+#include "Statics/MageTowerFunctionLibrary.h"
 #include "Tower/Tower.h"
 
 
@@ -25,6 +27,10 @@ void AMTGameStateBase::StartGame()
 
 	UE_LOG(LogGameState, Log, TEXT("Game started"));
 
+	UMTGameInstance* GameInstance = UMageTowerFunctionLibrary::GetMTGameInstance(this);
+	check(GameInstance);
+	GameInstance->LoadGame();
+
 	Tower->OnTowerDestroyedDelegate.AddDynamic(this, &ThisClass::AMTGameStateBase::OnTowerDestroyed);
 
 	OnGameStartedDelegate.Broadcast();
@@ -35,6 +41,11 @@ void AMTGameStateBase::FinishGame(EGameFinishedReason InReason)
 	CurrentGameStage = EGameStage::Finished;
 	
 	UE_LOG(LogGameState, Log, TEXT("Game finished, reason: %s"), *UEnum::GetValueAsString(InReason));
+
+	
+	UMTGameInstance* GameInstance = UMageTowerFunctionLibrary::GetMTGameInstance(this);
+	check(GameInstance);
+	GameInstance->SaveGame();
 
 	OnGameFinishedDelegate.Broadcast(InReason);
 }

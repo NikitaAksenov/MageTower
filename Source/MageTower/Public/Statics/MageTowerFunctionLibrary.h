@@ -11,6 +11,8 @@
 class AMTGameModeBase;
 class AMTGameStateBase;
 
+class UMTGameInstance;
+
 
 /**
  * 
@@ -26,4 +28,7 @@ public:
 	
 	UFUNCTION(BlueprintCallable, Category = "MageTower")
 	static AMTGameModeBase* GetMTGameMode(const UObject* WorldContextObject);
+
+	UFUNCTION(BlueprintCallable, Category = "MageTower")
+	static UMTGameInstance* GetMTGameInstance(const UObject* WorldContextObject);
 };
