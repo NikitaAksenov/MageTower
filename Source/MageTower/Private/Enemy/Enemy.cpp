@@ -6,8 +6,8 @@
 #include "Components/CapsuleComponent.h"
 #include "Components/HealthComponent.h"
 #include "Components/WidgetComponent.h"
-#include "Core/MTGameStateBase.h"
 #include "Core/MTPawn.h"
+#include "Core/Battle/MTBattleGameStateBase.h"
 #include "GameFramework/FloatingPawnMovement.h"
 #include "Resources/ResourceDropComponent.h"
 #include "Statics/MageTowerFunctionLibrary.h"
@@ -74,7 +74,7 @@ void AEnemy::OnReceivedLethalDamage(UObject* InCauser, AActor* InInstigator)
 		TArray<FResourceInfo> ResourceDrops = ResourceDropComponent->GetResourceDrop();
 		for (const FResourceInfo& ResourceDrop : ResourceDrops)
 		{
-			UMageTowerFunctionLibrary::GetMTGameState(this)->GetResourceContainerRef().Add(ResourceDrop);
+			UMageTowerFunctionLibrary::GetMTBattleGameState(this)->GetResourceContainerRef().Add(ResourceDrop);
 		}
 	}
 	

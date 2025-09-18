@@ -3,8 +3,8 @@
 
 #include "Enemy/EnemySpawnSubsystem.h"
 
-#include "Core/MTGameModeBase.h"
-#include "Core/MTGameStateBase.h"
+#include "Core/Battle/MTBattleGameModeBase.h"
+#include "Core/Battle/MTBattleGameStateBase.h"
 #include "Enemy/Enemy.h"
 #include "Kismet/GameplayStatics.h"
 #include "Statics/MageTowerFunctionLibrary.h"
@@ -18,7 +18,14 @@ void UEnemySpawnSubsystem::OnWorldBeginPlay(UWorld& InWorld)
 {
 	Super::OnWorldBeginPlay(InWorld);
 
-	AMTGameStateBase* GameState = UMageTowerFunctionLibrary::GetMTGameState(this);
+	const AMTBattleGameModeBase* GameMode = UMageTowerFunctionLibrary::GetMTBattleGameMode(this);
+	if (!GameMode)
+	{
+		UE_LOG(LogEnemySpawnSubsystem, Log, TEXT("EnemySwarmSubsystem will not be created, because game mode is not BattleGameMode"));
+		return;
+	}
+
+	AMTBattleGameStateBase* GameState = UMageTowerFunctionLibrary::GetMTBattleGameState(this);
 	check(GameState);
 	if (GameState->IsGameInProgress())
 	{
@@ -65,7 +72,7 @@ void UEnemySpawnSubsystem::StopSpawning()
 
 void UEnemySpawnSubsystem::OnGameStarted()
 {
-	AMTGameModeBase* GameMode = UMageTowerFunctionLibrary::GetMTGameMode(this);
+	AMTBattleGameModeBase* GameMode = UMageTowerFunctionLibrary::GetMTBattleGameMode(this);
 	check(GameMode);
 	
 	StartSpawning(GameMode->GetDefaultSpawnSettings());

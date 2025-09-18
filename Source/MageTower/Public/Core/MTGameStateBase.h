@@ -45,13 +45,8 @@ class MAGETOWER_API AMTGameStateBase : public AGameStateBase
 {
 	GENERATED_BODY()
 
-public:
-	virtual void BeginPlay() override;
 
 protected:
-	UPROPERTY(VisibleInstanceOnly, Category = "GameState")
-	EGameStage CurrentGameStage = EGameStage::None;
-
 	UPROPERTY(VisibleInstanceOnly, Category = "GameState")
 	FResourceContainer ResourceContainer;
 
@@ -64,24 +59,8 @@ public:
 
 public:
 	UFUNCTION(BlueprintCallable, Category = "GameState")
-	void StartGame();
-	
-	UFUNCTION(BlueprintCallable, Category = "GameState")
-	void FinishGame(EGameFinishedReason InReason);
-
-	UFUNCTION(BlueprintCallable, Category = "GameState")
-	FORCEINLINE bool IsGameInProgress() const { return CurrentGameStage == EGameStage::InProgress; }
-
-	UFUNCTION(BlueprintCallable, Category = "GameState")
 	FResourceContainer GetResourceContainer() const { return ResourceContainer; }
 
 	UFUNCTION(BlueprintCallable, Category = "GameState")
 	FResourceContainer& GetResourceContainerRef() { return ResourceContainer; }
-
-protected:
-	UFUNCTION()
-	void OnTowerDestroyed(ATower* InTower);
-
-protected:
-	ATower* Tower;
 };

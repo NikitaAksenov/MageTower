@@ -3,16 +3,14 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "GameFramework/GameModeBase.h"
-
-#include "MTGameModeBase.generated.h"
-
+#include "Core/MTGameModeBase.h"
+#include "MTUpgradeGameModeBase.generated.h"
 
 /**
  * 
  */
 UCLASS()
-class MAGETOWER_API AMTGameModeBase : public AGameModeBase
+class MAGETOWER_API AMTUpgradeGameModeBase : public AMTGameModeBase
 {
 	GENERATED_BODY()
 	

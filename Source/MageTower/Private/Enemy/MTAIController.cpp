@@ -16,7 +16,7 @@ void AMTAIController::BeginPlay()
 {
 	Super::BeginPlay();
 
-	GameState = UMageTowerFunctionLibrary::GetMTGameState(this);
+	GameState = UMageTowerFunctionLibrary::GetMTBattleGameState(this);
 	check(GameState);
 	GameState->OnGameStartedDelegate.AddDynamic(this, &ThisClass::AMTAIController::OnGameStarted);
 	GameState->OnGameFinishedDelegate.AddDynamic(this, &ThisClass::AMTAIController::OnGameFinished);

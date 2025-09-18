@@ -27,7 +27,6 @@ class MAGETOWER_API UEnemySpawnSubsystem : public UTickableWorldSubsystem
 	GENERATED_BODY()
 
 public:
-	
 	virtual void OnWorldBeginPlay(UWorld& InWorld) override;
 	
 	virtual void Tick(float DeltaTime) override;

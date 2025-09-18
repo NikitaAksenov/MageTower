@@ -3,7 +3,7 @@
 
 #include "Spell/SpellComponent.h"
 
-#include "Core/MTGameStateBase.h"
+#include "Core/Battle/MTBattleGameStateBase.h"
 #include "Spell/Spell.h"
 #include "Spell/SpellTypes.h"
 #include "Statics/MageTowerFunctionLibrary.h"
@@ -19,7 +19,7 @@ void USpellComponent::BeginPlay()
 {
 	Super::BeginPlay();
 
-	UMageTowerFunctionLibrary::GetMTGameState(this)->OnGameFinishedDelegate.AddDynamic(this, &ThisClass::OnGameFinished);
+	UMageTowerFunctionLibrary::GetMTBattleGameState(this)->OnGameFinishedDelegate.AddDynamic(this, &ThisClass::OnGameFinished);
 }
 
 void USpellComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)

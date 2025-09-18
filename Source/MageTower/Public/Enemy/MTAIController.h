@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "AIController.h"
 
+#include "Core/Battle/MTBattleGameStateBase.h"
 #include "Core/MTGameStateBase.h"
 
 #include "MTAIController.generated.h"
@@ -46,5 +47,5 @@ protected:
 	void OnGameFinished(EGameFinishedReason InReason);
 
 protected:
-	AMTGameStateBase* GameState = nullptr;
+	AMTBattleGameStateBase* GameState = nullptr;
 };
