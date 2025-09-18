@@ -13,7 +13,7 @@ class USpellComponent;
 class USpringArmComponent;
 
 
-UCLASS()
+UCLASS(Abstract)
 class MAGETOWER_API AMTPawn : public APawn
 {
 	GENERATED_BODY()
@@ -38,8 +38,5 @@ protected:
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Components")
 	TObjectPtr<UCameraComponent> Camera;
-
-protected:
-	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Components")
-	TObjectPtr<USpellComponent> SpellComponent;
+	
 };

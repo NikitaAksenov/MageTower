@@ -11,7 +11,7 @@
 /**
  * 
  */
-UCLASS()
+UCLASS(Abstract)
 class MAGETOWER_API USpell_ArcaneBlast : public UPlayerSpell
 {
 	GENERATED_BODY()

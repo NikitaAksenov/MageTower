@@ -17,11 +17,14 @@ AMTPawn::AMTPawn()
 
 	SpringArm = CreateDefaultSubobject<USpringArmComponent>(TEXT("SpringArm"));
 	SpringArm->SetupAttachment(Root);
+	SpringArm->TargetArmLength = 1000.f;
+	SpringArm->bDoCollisionTest = false;
+	SpringArm->SetWorldRotation(FRotator(-90.f, 0.f, 0.f));
 
 	Camera = CreateDefaultSubobject<UCameraComponent>(TEXT("Camera"));
 	Camera->SetupAttachment(SpringArm);
-
-	SpellComponent = CreateDefaultSubobject<USpellComponent>(TEXT("SpellComponent"));
+	Camera->SetProjectionMode(ECameraProjectionMode::Type::Orthographic);
+	Camera->OrthoWidth = 7680.f;
 }
 
 void AMTPawn::BeginPlay()
