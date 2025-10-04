@@ -16,6 +16,7 @@ class AMTUpgradeGameModeBase;
 class AMTUpgradeGameStateBase;
 
 class UMTGameInstance;
+class USavesSubsystem;
 
 
 /**
@@ -47,4 +48,7 @@ public:
 
 	UFUNCTION(BlueprintCallable, Category = "MageTower|GameInstance")
 	static UMTGameInstance* GetMTGameInstance(const UObject* WorldContextObject);
+
+	UFUNCTION(BlueprintCallable, Category = "MageTower|Saves")
+	static USavesSubsystem* GetSavesSubsystem(const UObject* WorldContextObject);
 };

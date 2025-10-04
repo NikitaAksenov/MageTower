@@ -27,8 +27,5 @@ public:
 public:
 	UPROPERTY(VisibleAnywhere)
 	FResourceContainer ResourceContainer;
-
-public:
-	void Save(const UObject* WorldContextObject);
-	void Load(const UObject* WorldContextObject);
+	
 };

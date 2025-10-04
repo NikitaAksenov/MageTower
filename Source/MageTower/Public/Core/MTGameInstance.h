@@ -19,14 +19,5 @@ class MAGETOWER_API UMTGameInstance : public UGameInstance
 {
 	GENERATED_BODY()
 
-public:
-	UPROPERTY()
-	UMTSaveGame* CurrentSave;
-
-public:
-	UFUNCTION(BlueprintCallable)
-	void LoadGame();
-
-	UFUNCTION(BlueprintCallable)
-	void SaveGame();
+	
 };

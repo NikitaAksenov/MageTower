@@ -6,7 +6,12 @@
 
 DEFINE_LOG_CATEGORY(LogResource);
 
-UE_DISABLE_OPTIMIZATION
+
+FString FResourceInfo::ToString() const
+{
+	return ResourceTypeTag.ToString() + " " + FString::FromInt(Amount);
+}
+
 FResourceContainer::FResourceContainer()
 {
 }
@@ -46,4 +51,21 @@ void FResourceContainer::Add(const FResourceContainer& InResourceContainer)
 		Add(ResourceInfo);
 	}
 }
-UE_ENABLE_OPTIMIZATION
+
+FString FResourceContainer::GetDebugString() const
+{
+	FString DebugString;
+
+	if (Resources.IsEmpty())
+	{
+		return "No resources";
+	}
+
+	int Index = 1;
+	for (auto& Resource : Resources)
+	{
+		DebugString += FString::Printf(TEXT("#%d %s\n"), Index++, *Resource.Value.ToString());
+	}
+	
+	return DebugString;
+}

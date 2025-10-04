@@ -31,6 +31,9 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, SaveGame, meta = (UIMin = 0, ClampMin = 0))
 	int32 Amount;
+
+public:
+	FString ToString() const;
 };
 
 
@@ -64,4 +67,6 @@ public:
 	void Add(const FGameplayTag& InResourceTypeTag, int32 InAmount);
 	void Add(const FResourceInfo& InResourceInfo);
 	void Add(const FResourceContainer& InResourceContainer);
+
+	FString GetDebugString() const;
 };

@@ -10,8 +10,9 @@
 #include "Core/MTGameStateBase.h"
 #include "Core/Upgrade/MTUpgradeGameModeBase.h"
 #include "Core/Upgrade/MTUpgradeGameStateBase.h"
+#include "Save/SavesSubsystem.h"
 
-UE_DISABLE_OPTIMIZATION
+
 AMTGameStateBase* UMageTowerFunctionLibrary::GetMTGameState(const UObject* WorldContextObject)
 {
 	if (!WorldContextObject) return nullptr;
@@ -62,4 +63,16 @@ UMTGameInstance* UMageTowerFunctionLibrary::GetMTGameInstance(const UObject* Wor
 
 	return Cast<UMTGameInstance>(World->GetGameInstance());
 }
-UE_ENABLE_OPTIMIZATION
+
+USavesSubsystem* UMageTowerFunctionLibrary::GetSavesSubsystem(const UObject* WorldContextObject)
+{
+	if (!WorldContextObject) return nullptr;
+
+	const UWorld* World = WorldContextObject->GetWorld();
+	if (!World) return nullptr;
+
+	UGameInstance* GameInstance = Cast<UGameInstance>(World->GetGameInstance());
+	if (!GameInstance) return nullptr;
+
+	return GameInstance->GetSubsystem<USavesSubsystem>();
+}
