@@ -18,5 +18,11 @@ class MAGETOWER_API AMTPlayerController : public APlayerController
 
 public:
 	AMTPlayerController();
-	
+
+public:
+	virtual void BeginPlay() override;
+
+protected:
+	UPROPERTY(EditDefaultsOnly, Category = "Settings")
+	TObjectPtr<UUserWidget> HUDWidget;
 };

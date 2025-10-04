@@ -8,3 +8,13 @@ AMTPlayerController::AMTPlayerController()
 	SetShowMouseCursor(true);
 	bEnableClickEvents = true;
 }
+
+void AMTPlayerController::BeginPlay()
+{
+	Super::BeginPlay();
+
+	if (HUDWidget)
+	{
+		// TODO Create widget
+	}
+}
